@@ -1,0 +1,76 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+#root{
+  min-height: 100dvh;
+  grid-template-rows: 
+      auto 1fr auto;
+}
+
+body {
+  color: white !important;
+  background-color: #FFD700 !important;
+  font-family: "VT323", monospace !important;
+  font-weight: 400 !important;
+}
+
+header,
+nav {
+  text-align: center;
+  padding: 10px;
+}
+
+h1 {
+  font-family: "Press Start 2P", system-ui;
+  color: #FFCC00 !important;
+}
+
+.container-header {
+  background-color: #195f72;
+  padding: 10px;
+}
+
+footer {
+  background-color: #195f72;
+  padding: 5px;
+  margin-top: 20px;
+}
+
+#title-main, #title-cart {
+  text-align: center;
+  padding: 20px;
+  font-size: 3em;
+}
+
+.container-productos{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: auto;
+  max-width: 1500px;
+}
+
+h3{
+  font-size: 2em;
+}
+
+.card-product{
+  filter: drop-shadow(
+        0 0 10px rgba(0,0,0,.6)
+    )
+}
+
+.btn-addCart{
+  color: #61dafb;
+  padding: 10px;
+  left: 50%;
+}
+
+.title-cart{
+  color: white !important;
+  text-align: center;
+  padding: 20px;
+}
