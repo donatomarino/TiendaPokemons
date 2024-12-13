@@ -21,7 +21,7 @@ export default function Product({url, up, name, addToCart }) {
                 <Card.Text>Precio: {precio} €</Card.Text>
                 <Button
                     variant="warning"
-                    onClick={() => addToCart(name)}
+                    onClick={() => addToCart([name, url])}
                 > Add to Cart</Button>
             </Card.Body>
         </Card>

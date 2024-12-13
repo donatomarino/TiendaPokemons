@@ -8,39 +8,35 @@ export default function Home() {
 
     const [cart, setCart] = useState([]);
 
-    // Para recoger todos los pokemons y crear sus botones
+    // Para recoger todos los pokemons y crear cartas
     useEffect(() => {
         const storedPokemons = localStorage.getItem('pokemons');
 
         if (storedPokemons) {
-            // Si hay pokemons almacenados, usarlos
+            // Si hay pokemons almacenados
             setAllPokemon(JSON.parse(storedPokemons));
         } else {
-            // Si no hay pokemons almacenados, hacer fetch y almacenarlos
-            fetch(`https://pokeapi.co/api/v2/pokemon/?offset=20&limit=20`)
-                .then((res) => res.json())
-                .then((res) => {
-                    let pokemons = [];
+            const getFetch = async () => {
+                const response = await fetch(`https://pokeapi.co/api/v2/pokemon/?offset=20&limit=10`);
+                const data = await response.json()
+                return data;
+            }
 
-                    res.results.map((r) =>
-                        fetch(`https://pokeapi.co/api/v2/pokemon/${r.name}`)
-                            .then((data) => data.json())
-                            .then((data) => {
-                                pokemons.push({
-                                    name: data.name,
-                                    image: data.sprites.other.home.front_default,
-                                });
-                            })
-                            .catch(e => console.log(e))
-                    ).then(() => {
-                        // Al finalizar todas las peticiones, guardar los pokemons en localStorage
-                        setAllPokemon(pokemons);
-                        localStorage.setItem('pokemons', JSON.stringify(pokemons));
-                    });
-                })
-                .catch((e) => console.log(e));
+            const allPokemons = async () => {
+                const response = await getFetch();
+                const pokemons = await Promise.all(response.results.map(async (r) => {
+                    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${r.name}`);
+                    const d = await res.json();
+                    return {
+                        name: d.name,
+                        image: d.sprites.other.home.front_default,
+                    };
 
-            console.log(allPokemon)
+                }))
+                setAllPokemon(pokemons);
+                localStorage.setItem('pokemons', JSON.stringify(pokemons))
+            }
+            allPokemons()
         }
     }, []);
 
@@ -50,12 +46,31 @@ export default function Home() {
         return name.charAt(0).toUpperCase() + name.slice(1);
     }
 
-    const handleAddToCart = (product) => {
-        setCart([...cart, product]);
+    const handleAddToCart = (info) => {
+        setCart([...cart, [info[0], info[1]]]);
     };
 
     useEffect(() => {
-        localStorage.setItem('cart', JSON.stringify(cart));
+        let carrito = localStorage.getItem('cart');
+
+        if (carrito) {
+            carrito = JSON.parse(carrito);
+        } else {
+            carrito = [];
+        }
+
+        // console.log(cart);
+        // console.log(cart[0].name)
+        cart.map((e) => {
+            let product = {
+                name: e[0],
+                url: e[1]
+            }
+
+            carrito.push(product);
+        })
+        // console.log(product)
+        localStorage.setItem('cart', JSON.stringify(carrito))
     }, [cart])
 
     return (

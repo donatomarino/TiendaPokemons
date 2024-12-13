@@ -12,7 +12,6 @@ export default function NavBar() {
   return (
     <nav>
       <Link style={style} to="/">Catalog Products</Link>
-      <Link style={style} to="/about">About Us</Link>
       <Link style={style} to="/cart">Cart</Link>
     </nav>
   );
