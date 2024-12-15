@@ -4,7 +4,7 @@ import { toUpper } from "../pages/Home";
 import Boton from "../components/Boton";
 import { useEffect, useState } from "react";
 
-export default function ProductsCart({ prod, quantity }) {
+export default function ProductsCart({ prod, precio, quantity }) {
 
     const [cart, setCart] = useState([]);
 
@@ -54,7 +54,7 @@ export default function ProductsCart({ prod, quantity }) {
                                     cart.map((item, index) => (
                                         <tr>
                                             <th>{toUpper(item.name)}</th>
-                                            <td>10€</td>
+                                            <td>{item.precio}€</td>
                                             <td>
                                                 <Boton
                                                     clase={"btn btn-ouline-primary"}
