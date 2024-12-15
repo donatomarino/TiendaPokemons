@@ -3,10 +3,10 @@ import Card from 'react-bootstrap/Card';
 import { useEffect, useState } from "react";
 
 export default function Product({url, up, name, addToCart }) {
-    const [precio, setPrecio] = useState();
+    const [price, setPrice] = useState();
     
     useEffect(() =>{
-        setPrecio(Math.floor(Math.random() * (100 - 10) + 10));
+        setPrice(Math.floor(Math.random() * (100 - 10) + 10));
     }, [])
 
     return (
@@ -18,10 +18,14 @@ export default function Product({url, up, name, addToCart }) {
             <Card.Img variant="top" src={url} />
             <Card.Body>
                 <Card.Title>{up(name)}</Card.Title>
-                <Card.Text>Precio: {precio} €</Card.Text>
+                <Card.Text>Precio: {price} €</Card.Text>
                 <Button
                     variant="warning"
+<<<<<<< HEAD
                     onClick={() => addToCart([name, precio])}
+=======
+                    onClick={() => addToCart([name, price])}
+>>>>>>> 1c377e4 (Set quantity)
                 > Add to Cart</Button>
             </Card.Body>
         </Card>

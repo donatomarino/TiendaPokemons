@@ -13,27 +13,41 @@ export default function ProductsCart({ prod, precio, quantity }) {
         // localStorage.setItem('cart', JSON.stringify(cart));
     }, [])
 
-    // useEffect(() => {
-    // }, [cart])
-
     // ELiminamos los productos y actualizamos el localStorage
     const deleteBuy = (index) => {
         const storedCart = JSON.parse(localStorage.getItem('cart'));
-    
+
         // Filtramos en el carrito para eliminar el item en el índice dado
         const updateCart = storedCart.filter((_, i) => i != index);
-    
+
         // Actualizamos estado del carrito
         setCart(updateCart);
-    
+
         // Si el carrito está vacío se elimina la clave 'cart' del localStorage
-        if(updateCart == 0){
+        if (updateCart == 0) {
             localStorage.removeItem('cart');
         } else {
             localStorage.setItem('cart', JSON.stringify(updateCart));
         }
     };
-    
+
+    // Calculamos el total del carrito
+    const countingTotal = () => {
+        const cart = JSON.parse(localStorage.getItem('cart'));
+        const allPrices = [];
+
+        if (cart) {
+            cart.map((e) => {
+                // Calculamos el precio por la cantidad de productos que tenemos
+                const total = e.price * e.quantity;              
+                allPrices.push(total)
+            })
+            const suma = allPrices.reduce((accumulador, currentValue) => accumulador + currentValue);
+            return suma;
+        } else {
+            return "";
+        }
+    };
 
     return (
         <div className="container-table">
@@ -54,7 +68,11 @@ export default function ProductsCart({ prod, precio, quantity }) {
                                     cart.map((item, index) => (
                                         <tr>
                                             <th>{toUpper(item.name)}</th>
+<<<<<<< HEAD
                                             <td>{item.precio}€</td>
+=======
+                                            <td>€{item.price}</td>
+>>>>>>> 1c377e4 (Set quantity)
                                             <td>
                                                 <Boton
                                                     clase={"btn btn-ouline-primary"}
@@ -62,7 +80,7 @@ export default function ProductsCart({ prod, precio, quantity }) {
                                                 />
                                                 <Boton
                                                     clase={"btn btn-warning"}
-                                                    text={"1"}
+                                                    text= {item.quantity}
                                                 />
                                                 <Boton
                                                     clase={"btn btn-ouline-primary"}
@@ -74,12 +92,17 @@ export default function ProductsCart({ prod, precio, quantity }) {
                                                     value={index}
                                                     clase={"btn btn-danger"}
                                                     text={"Eliminar"}
-                                                    onClick={() => {deleteBuy(index)}}
+                                                    onClick={() => { deleteBuy(index) }}
                                                 />
                                             </td>
                                         </tr>
                                     ))
                                 }
+
+                                <th>TOTAL: </th>
+                                <td></td>
+                                <td></td>
+                                <td>€{countingTotal()}</td>
                             </tbody>
 
                         </table>
@@ -88,21 +111,19 @@ export default function ProductsCart({ prod, precio, quantity }) {
                             <Boton
                                 clase="btn-compra"
                                 text={"COMPRAR"}
-                                //disabled
+                            //disabled
                             />
                         </div>
 
                     </>
-
-
                 ) : (
                     <div className="cart-empty">
                         <h2 className="cart-empty_title">TU CARRITO ESTÁ VACÍO</h2>
                         <p className="cart-empty_p">Cuando hayas añadido algo al carrito, aparecerá aquí. ¿Quieres empezar?</p>
                         <Link to="/"><button type="button" class="btn btn-primary btn-lg">Vamos a comprar!</button></Link>
                     </div>
-                )}
-
+                )
+            }
         </div>
     );
 }

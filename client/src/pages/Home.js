@@ -13,7 +13,7 @@ export default function Home() {
 
     const [cart, setCart] = useState([]);
 
-    // Para recoger todos los pokemons y crear cartas
+    // Recogemos todos los pokemons y creamos las cartas
     useEffect(() => {
         const storedPokemons = localStorage.getItem('pokemons');
 
@@ -40,9 +40,8 @@ export default function Home() {
                         const d = await res.json();
                         return {
                             name: d.name,
-                            image: d.sprites.other.home.front_default,
-                        };
-    
+                            image: d.sprites.other.home.front_default
+                        };    
                     }))
                     setAllPokemon(pokemons);
                     localStorage.setItem('pokemons', JSON.stringify(pokemons))
@@ -56,11 +55,18 @@ export default function Home() {
     }, []);
 
     const handleAddToCart = (info) => {
+        /* Por el momento no sirve
         setCart([...cart, [info[0], info[1]]]);
+        */
 
         let product = {
             name: info[0],
+<<<<<<< HEAD
             precio: info[1]
+=======
+            price: info[1],
+            quantity: 1
+>>>>>>> 1c377e4 (Set quantity)
         }
 
         // Buscamos el elemento 'cart' en el localStorage
@@ -69,8 +75,15 @@ export default function Home() {
         // Si existe lo parsea a object sino crea un array vacío
         carrito ? carrito = JSON.parse(carrito) : carrito = [];
 
-        // Añadimos elemento en el array
-        carrito.push(product);
+        // Verificamos si el producto ya está en el carrito, si está cogemos la index para sumar la cantidad
+        const existingIndex = carrito.findIndex(item => item.name === product.name);
+
+        // Si ya existe sumamos 1 a la cantidad, si no lo añadimos al array
+        if(existingIndex !== -1) {
+            carrito[existingIndex].quantity++;
+        } else {
+            carrito.push(product);
+        }
 
         // Settamos elemento en el localStorage
         localStorage.setItem('cart', JSON.stringify(carrito))
