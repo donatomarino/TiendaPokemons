@@ -2,6 +2,22 @@
 │ ├── └── 
 ## Estructura Proyecto
 my-react-app/
+│ 
+├── public/
+│    └── images/
+│        └── favicon.png
+│ 
+└── src/
+    └── components/
+        ├── Boton.js
+        ├── Footer.js
+        ├── Header.js
+        ├── NavBar.js
+        ├── Product.js
+        └── ProductsCart.js
+    
+
+my-react-app/
 │
 ├── public/
 │   └── images/
