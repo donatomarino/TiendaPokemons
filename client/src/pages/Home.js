@@ -22,24 +22,34 @@ export default function Home() {
             setAllPokemon(JSON.parse(storedPokemons));
         } else {
             const getFetch = async () => {
-                const response = await fetch(`https://pokeapi.co/api/v2/pokemon/?offset=20&limit=10`);
-                const data = await response.json()
-                return data;
+                try {
+                    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/?offset=20&limit=10`);
+                    const data = await response.json()
+                    return data.results;
+                } catch(e){
+                    console.log(`Error: ${e}`);
+                    return []
+                }
             }
 
             const allPokemons = async () => {
-                const response = await getFetch();
-                const pokemons = await Promise.all(response.results.map(async (r) => {
-                    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${r.name}`);
-                    const d = await res.json();
-                    return {
-                        name: d.name,
-                        image: d.sprites.other.home.front_default,
-                    };
-
-                }))
-                setAllPokemon(pokemons);
-                localStorage.setItem('pokemons', JSON.stringify(pokemons))
+                try {
+                    const response = await getFetch();
+                    const pokemons = await Promise.all(response.map(async (r) => {
+                        const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${r.name}`);
+                        const d = await res.json();
+                        return {
+                            name: d.name,
+                            image: d.sprites.other.home.front_default,
+                        };
+    
+                    }))
+                    setAllPokemon(pokemons);
+                    localStorage.setItem('pokemons', JSON.stringify(pokemons))
+                } catch (e) {
+                    console.log(`Error: ${e}`);
+                    return [];
+                }
             }
             allPokemons()
         }
@@ -53,13 +63,16 @@ export default function Home() {
             url: info[1]
         }
 
+        // Buscamos el elemento 'cart' en el localStorage
         let carrito = localStorage.getItem('cart');
 
+        // Si existe lo parsea a object sino crea un array vacío
         carrito ? carrito = JSON.parse(carrito) : carrito = [];
 
+        // Añadimos elemento en el array
         carrito.push(product);
 
-        // console.log(product)
+        // Settamos elemento en el localStorage
         localStorage.setItem('cart', JSON.stringify(carrito))
 
         alert(`Pokemon ${toUpper(info[0])} añadido al carrito!`);
