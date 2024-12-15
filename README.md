@@ -26,6 +26,3 @@ my-react-app/
     ├── App.js
     └── index.js
 ```
-
-1) Cantidad
-2) Hacer pagina compra realizada

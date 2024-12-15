@@ -60,7 +60,7 @@ export default function Home() {
 
         let product = {
             name: info[0],
-            url: info[1]
+            precio: info[1]
         }
 
         // Buscamos el elemento 'cart' en el localStorage
