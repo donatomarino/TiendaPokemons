@@ -1,6 +1,7 @@
 # TiendaPokemons
 │ ├── └── 
 ## Estructura Proyecto
+```
 my-react-app/
 │ 
 ├── public/
@@ -15,7 +16,7 @@ my-react-app/
         ├── NavBar.js
         ├── Product.js
         └── ProductsCart.js
-    
+``` 
 
 my-react-app/
 │
