@@ -6,7 +6,7 @@ export default function NavBar() {
     textDecoration: "none",
     margin: '30px',
     color: '#FF0000',
-    fontSize: '20px',
+    fontSize: '25px',
     fontWeight: '700px'
   }
   return (
