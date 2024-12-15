@@ -61,12 +61,8 @@ export default function Home() {
 
         let product = {
             name: info[0],
-<<<<<<< HEAD
-            precio: info[1]
-=======
             price: info[1],
             quantity: 1
->>>>>>> 1c377e4 (Set quantity)
         }
 
         // Buscamos el elemento 'cart' en el localStorage

@@ -68,11 +68,7 @@ export default function ProductsCart({ prod, precio, quantity }) {
                                     cart.map((item, index) => (
                                         <tr>
                                             <th>{toUpper(item.name)}</th>
-<<<<<<< HEAD
-                                            <td>{item.precio}€</td>
-=======
                                             <td>€{item.price}</td>
->>>>>>> 1c377e4 (Set quantity)
                                             <td>
                                                 <Boton
                                                     clase={"btn btn-ouline-primary"}

@@ -21,11 +21,7 @@ export default function Product({url, up, name, addToCart }) {
                 <Card.Text>Precio: {price} €</Card.Text>
                 <Button
                     variant="warning"
-<<<<<<< HEAD
-                    onClick={() => addToCart([name, precio])}
-=======
                     onClick={() => addToCart([name, price])}
->>>>>>> 1c377e4 (Set quantity)
                 > Add to Cart</Button>
             </Card.Body>
         </Card>
