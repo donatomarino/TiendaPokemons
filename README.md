@@ -27,7 +27,5 @@ my-react-app/
     └── index.js
 ```
 
-1) Pasar precio por parametro al carrito
-2) Calcular el total del carrito
-3) Cantidad
-4) Hacer pagina compra realizada
+1) Cantidad
+2) Hacer pagina compra realizada
