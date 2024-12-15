@@ -7,7 +7,6 @@ const Cart = () => {
   return (
     <ProductsCart
       prod={productos}
-      quantity="0"
     />
   );
 }

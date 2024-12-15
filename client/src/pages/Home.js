@@ -3,6 +3,11 @@ import { useEffect, useState } from "react";
 import Product from "../components/Product";
 // import fetch from "../hooks/fetch";
 
+// Devolvemos la primera letra del nombre en mayuscula
+export const toUpper = (name) => {
+    return name.charAt(0).toUpperCase() + name.slice(1);
+}
+
 export default function Home() {
     const [allPokemon, setAllPokemon] = useState([]);
 
@@ -13,7 +18,7 @@ export default function Home() {
         const storedPokemons = localStorage.getItem('pokemons');
 
         if (storedPokemons) {
-            // Si hay pokemons almacenados
+            // Si hay pokemons almacenados se guardan en el LocalStorage
             setAllPokemon(JSON.parse(storedPokemons));
         } else {
             const getFetch = async () => {
@@ -40,38 +45,25 @@ export default function Home() {
         }
     }, []);
 
-
-    // Devolvemos la primera letra del nombre en mayuscula
-    const toUpper = (name) => {
-        return name.charAt(0).toUpperCase() + name.slice(1);
-    }
-
     const handleAddToCart = (info) => {
         setCart([...cart, [info[0], info[1]]]);
-    };
 
-    useEffect(() => {
-        let carrito = localStorage.getItem('cart');
-
-        if (carrito) {
-            carrito = JSON.parse(carrito);
-        } else {
-            carrito = [];
+        let product = {
+            name: info[0],
+            url: info[1]
         }
 
-        // console.log(cart);
-        // console.log(cart[0].name)
-        cart.map((e) => {
-            let product = {
-                name: e[0],
-                url: e[1]
-            }
+        let carrito = localStorage.getItem('cart');
 
-            carrito.push(product);
-        })
+        carrito ? carrito = JSON.parse(carrito) : carrito = [];
+
+        carrito.push(product);
+
         // console.log(product)
         localStorage.setItem('cart', JSON.stringify(carrito))
-    }, [cart])
+
+        alert(`Pokemon ${toUpper(info[0])} añadido al carrito!`);
+    };
 
     return (
         <div className="main">
