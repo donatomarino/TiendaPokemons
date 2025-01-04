@@ -20,8 +20,7 @@ my-react-app/
     ├── pages/
     │   ├── Cart.js
     │   ├── Home.js
-    │   ├── NotFound.js
-    │   └── Purchase.js
+    │   └── Checkout.js
     │
     ├── App.js
     └── index.js
