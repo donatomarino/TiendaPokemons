@@ -101,6 +101,7 @@ tr, th, td{
   padding: 10px !important;
   border-bottom: 1px solid #195f72 !important;
   text-align: center;
+  border-top: none !important;
 }
 
 th{
@@ -109,7 +110,7 @@ th{
 
 .btn-compra{
   margin: 20px auto;
-  width: 30%;
+  width: 100%;
   padding: 10px;
   background-color: #195f72;
   color: white;
@@ -122,3 +123,10 @@ th{
   background-color: #0e3a46;
 }
 
+.btn-checkout{
+  text-align: center;
+}
+
+.contenedor-checkout, .total-buy{
+  margin: 20px auto;
+}

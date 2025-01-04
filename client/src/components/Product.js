@@ -2,12 +2,24 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useEffect, useState } from "react";
 
-export default function Product({url, up, name, addToCart }) {
-    const [price, setPrice] = useState();
-    
-    useEffect(() =>{
-        setPrice(Math.floor(Math.random() * (100 - 10) + 10));
-    }, [])
+export default function Product({url, up, name, addToCart, index }) {
+    const [price, setPrice] = useState([]);
+
+    useEffect(() => {
+        let storedPrices = localStorage.getItem('price');
+        storedPrices = storedPrices ? JSON.parse(storedPrices) : [];
+
+        // Si no hay precio para este índice, lo genera y lo guarda
+        if (storedPrices[index] === undefined) {
+            const randomPrice = Math.floor(Math.random() * (100 - 10) + 10);
+            storedPrices[index] = randomPrice;
+            localStorage.setItem('price', JSON.stringify(storedPrices));
+            setPrice(randomPrice);
+        } else {
+            setPrice(storedPrices[index]);
+        }
+    }, []);
+
 
     return (
         <Card

@@ -1,4 +1,3 @@
-// Un componente que representa un solo producto
 import { Link } from "react-router-dom";
 import { toUpper } from "../pages/Home";
 import Boton from "../components/Boton";
@@ -10,7 +9,6 @@ export default function ProductsCart({ prod, precio, quantity }) {
 
     useEffect(() => {
         setCart(JSON.parse(localStorage.getItem('cart')));
-        // localStorage.setItem('cart', JSON.stringify(cart));
     }, [])
 
     // ELiminamos los productos y actualizamos el localStorage
@@ -29,7 +27,9 @@ export default function ProductsCart({ prod, precio, quantity }) {
         } else {
             localStorage.setItem('cart', JSON.stringify(updateCart));
         }
+        
     };
+
 
     // Calculamos el total del carrito
     const countingTotal = () => {
@@ -39,19 +39,40 @@ export default function ProductsCart({ prod, precio, quantity }) {
         if (cart) {
             cart.map((e) => {
                 // Calculamos el precio por la cantidad de productos que tenemos
-                const total = e.price * e.quantity;              
+                const total = e.price * e.quantity;
                 allPrices.push(total)
             })
             const suma = allPrices.reduce((accumulador, currentValue) => accumulador + currentValue);
+            localStorage.setItem('buy', JSON.parse(suma));
             return suma;
         } else {
             return "";
         }
     };
 
+    const removeItem = (i) => {
+        cart.forEach((e, index) => {
+            if (index === i) {
+                e.quantity -= 1;
+            }
+        });
+        setCart([...cart]);
+        localStorage.setItem('cart', JSON.stringify(cart))
+    };
+
+    const addItem = (i) => {
+        cart.forEach((e, index) => {
+            if (index === i) {
+                e.quantity += 1;
+            }
+        });
+        setCart([...cart]);
+        localStorage.setItem('cart', JSON.stringify(cart))
+    };
+
     return (
         <div className="container-table">
-            {prod
+            {localStorage.getItem('cart')
                 ? (
                     <>
                         <table className="table">
@@ -73,14 +94,16 @@ export default function ProductsCart({ prod, precio, quantity }) {
                                                 <Boton
                                                     clase={"btn btn-ouline-primary"}
                                                     text={"-"}
+                                                    onClick={() => removeItem(index)}
                                                 />
                                                 <Boton
                                                     clase={"btn btn-warning"}
-                                                    text= {item.quantity}
+                                                    text={item.quantity}
                                                 />
                                                 <Boton
                                                     clase={"btn btn-ouline-primary"}
                                                     text={"+"}
+                                                    onClick={() => addItem(index)}
                                                 />
                                             </td>
                                             <td>
@@ -103,12 +126,14 @@ export default function ProductsCart({ prod, precio, quantity }) {
 
                         </table>
 
-                        <div className="d-grid gap-2">
-                            <Boton
-                                clase="btn-compra"
-                                text={"COMPRAR"}
-                            //disabled
-                            />
+                        <div className="btn-checkout">
+                            <Link to="/checkout">
+                                <Boton
+                                    clase="btn-compra"
+                                    text={"COMPRAR"}
+                                //disabled
+                                />
+                            </Link>
                         </div>
 
                     </>
@@ -118,8 +143,7 @@ export default function ProductsCart({ prod, precio, quantity }) {
                         <p className="cart-empty_p">Cuando hayas añadido algo al carrito, aparecerá aquí. ¿Quieres empezar?</p>
                         <Link to="/"><button type="button" class="btn btn-primary btn-lg">Vamos a comprar!</button></Link>
                     </div>
-                )
-            }
+                )}
         </div>
     );
 }

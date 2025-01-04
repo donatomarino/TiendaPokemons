@@ -1,7 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import Product from "../components/Product";
-// import fetch from "../hooks/fetch";
 
 // Devolvemos la primera letra del nombre en mayuscula
 export const toUpper = (name) => {
@@ -10,8 +9,6 @@ export const toUpper = (name) => {
 
 export default function Home() {
     const [allPokemon, setAllPokemon] = useState([]);
-
-    const [cart, setCart] = useState([]);
 
     // Recogemos todos los pokemons y creamos las cartas
     useEffect(() => {
@@ -55,10 +52,6 @@ export default function Home() {
     }, []);
 
     const handleAddToCart = (info) => {
-        /* Por el momento no sirve
-        setCart([...cart, [info[0], info[1]]]);
-        */
-
         let product = {
             name: info[0],
             price: info[1],
@@ -92,13 +85,14 @@ export default function Home() {
             <h2 id="title-main">Catalogo de Productos</h2>
             <div className="container-productos">
                 {allPokemon
-                    ? allPokemon.map((pokemon) => {
+                    ? allPokemon.map((pokemon, i) => {
                         return (
                             <Product
                                 url={pokemon.image}
                                 up={toUpper}
                                 name={pokemon.name}
                                 addToCart={handleAddToCart}
+                                index = {i}
                             />
                         )
                     })
