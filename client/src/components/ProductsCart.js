@@ -27,7 +27,7 @@ export default function ProductsCart({ prod, precio, quantity }) {
         } else {
             localStorage.setItem('cart', JSON.stringify(updateCart));
         }
-        
+
     };
 
 
@@ -43,23 +43,27 @@ export default function ProductsCart({ prod, precio, quantity }) {
                 allPrices.push(total)
             })
             const suma = allPrices.reduce((accumulador, currentValue) => accumulador + currentValue);
-            localStorage.setItem('buy', JSON.parse(suma));
+            localStorage.setItem('buy', JSON.stringify(suma));
             return suma;
         } else {
             return "";
         }
     };
 
+    // Disminuimos la cantidad de un producto
     const removeItem = (i) => {
-        cart.forEach((e, index) => {
+        const updatedCart = cart.map((e, index) => {
             if (index === i) {
-                e.quantity -= 1;
+                return { ...e, quantity: e.quantity - 1 };
             }
+            return e;
         });
-        setCart([...cart]);
-        localStorage.setItem('cart', JSON.stringify(cart))
+
+        setCart(updatedCart); // Actualiza el estado con el nuevo array
+        localStorage.setItem('cart', JSON.stringify(updatedCart)); // Guarda el estado actualizado en localStorage
     };
 
+    // Aumentamos la cantidad
     const addItem = (i) => {
         cart.forEach((e, index) => {
             if (index === i) {
@@ -91,11 +95,19 @@ export default function ProductsCart({ prod, precio, quantity }) {
                                             <th>{toUpper(item.name)}</th>
                                             <td>€{item.price}</td>
                                             <td>
-                                                <Boton
-                                                    clase={"btn btn-ouline-primary"}
-                                                    text={"-"}
-                                                    onClick={() => removeItem(index)}
-                                                />
+                                                {item.quantity > 1 ? (
+                                                    <Boton
+                                                        clase={"btn btn-ouline-primary"}
+                                                        text={"-"}
+                                                        onClick={() => removeItem(index)}
+                                                    />
+                                                ) : (
+                                                    <Boton
+                                                        clase={"btn btn-ouline-primary"}
+                                                        text={"-"}
+                                                        onClick={() => { deleteBuy(index) }}
+                                                    />)
+                                                }
                                                 <Boton
                                                     clase={"btn btn-warning"}
                                                     text={item.quantity}
