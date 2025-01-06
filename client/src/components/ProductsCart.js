@@ -30,7 +30,6 @@ export default function ProductsCart({ prod, precio, quantity }) {
 
     };
 
-
     // Calculamos el total del carrito
     const countingTotal = () => {
         const cart = JSON.parse(localStorage.getItem('cart'));
@@ -59,11 +58,11 @@ export default function ProductsCart({ prod, precio, quantity }) {
             return e;
         });
 
-        setCart(updatedCart); // Actualiza el estado con el nuevo array
+        setCart(updatedCart);
         localStorage.setItem('cart', JSON.stringify(updatedCart)); // Guarda el estado actualizado en localStorage
     };
 
-    // Aumentamos la cantidad
+    // Incrementamos la cantidad de un determinado producto
     const addItem = (i) => {
         cart.forEach((e, index) => {
             if (index === i) {

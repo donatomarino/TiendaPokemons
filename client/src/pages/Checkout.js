@@ -13,7 +13,7 @@ export default function Checkout() {
         setTotalBuy(localStorage.getItem('buy'));
     }, [])
 
-    const removeCart = () => {
+    const clearLocalStorage = () => {
         // Remove los items del carrito actual
         localStorage.removeItem('cart');
         localStorage.removeItem('buy');
@@ -33,7 +33,7 @@ export default function Checkout() {
                 <Boton
                     clase="btn-compra"
                     text={"VOLVER A LA HOME"}
-                    onClick={() => removeCart()}
+                    onClick={() => clearLocalStorage()}
                 />
             </Link>
         </div>
