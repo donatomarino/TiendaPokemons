@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import ProductsCart from "../components/ProductsCart";
 
 const Cart = () => {

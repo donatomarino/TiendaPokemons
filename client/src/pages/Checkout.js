@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Boton from "../components/Boton";
+import { toUpper } from "../pages/Home";
 
 export default function Checkout() {
     const [totalBuy, setTotalBuy] = useState();
@@ -16,10 +17,6 @@ export default function Checkout() {
         // Remove los items del carrito actual
         localStorage.removeItem('cart');
         localStorage.removeItem('buy');
-    }
-
-    const toUpper = (name) => {
-        return name.charAt(0).toUpperCase() + name.slice(1);
     }
 
     return (
